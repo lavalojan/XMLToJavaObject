@@ -9,9 +9,9 @@ import javax.xml.bind.JAXBException;
 public class Output {
 	public void printResult() throws NumberFormatException, JAXBException, IOException {
 		ReadFile rf=new ReadFile();
-		rf.setXmlFile("question.xml");
+		rf.setXmlFile("values.xml");
 		rf.setInputFile("input.txt");
-		rf.setMsgId("msgId.xml");
+		rf.setMsgId("idSelector.xml");
 		ArrayList<HashMap> hashmap =rf.createhashmap();
 		System.out.println("\n"+hashmap);
 

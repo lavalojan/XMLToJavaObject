@@ -29,13 +29,13 @@ public class Msg {
 		this.id = id;
 	}
 
-	@XmlElement(name = "ELEMENT")
+	@XmlElement(name = "ELEMENTS")
 
-	public List<Elements> getele() {
+	public List<Elements> getelements() {
 		return elements;
 	}
 
-	public void setele(List<Elements> elements) {
+	public void setelements(List<Elements> elements) {
 		this.elements = elements;
 	}
 }

@@ -13,9 +13,9 @@ public class Msgs {
 	
 	public String getMsgfromInput(String sLine){
 		for (Msg m : msgs){
-			for(Elements ele :m.getele()){
+			for(Elements ele :m.getelements()){
 				//if( m.getId().equals(rdconfig.getMsgIdforMatchingStr(sLine))){
-					keymsg=sLine.substring(Integer.parseInt(ele.getstpos()), ele.getenmsg());
+					//keymsg=sLine.substring(Integer.parseInt(ele.getstpos()), ele.getenmsg());
 				//}
 					
 				

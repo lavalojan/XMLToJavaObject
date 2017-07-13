@@ -35,7 +35,7 @@ public class ReadFile {
 		ArrayList<HashMap> hashmap = new ArrayList<HashMap>();
 		ArrayList<String> error = new ArrayList<String>();
 
-		// public void xmlToObject(){
+		
 		try {
 			File file = new File(xmlFile);
 			JAXBContext jaxbContext = JAXBContext.newInstance(Msgs.class);
@@ -46,45 +46,29 @@ public class ReadFile {
 			JAXBContext jaxbContext2 = JAXBContext.newInstance(RdConfig.class);
 			Unmarshaller jaxbUnmarshaller2 = jaxbContext2.createUnmarshaller();
 			RdConfig rdConfig = (RdConfig) jaxbUnmarshaller2.unmarshal(file2);
-			List<Selectors> se = rdConfig.getSelectors();
+			
 			FileReader fr = new FileReader(inputFile);
-			int i = 0;
 			BufferedReader br = new BufferedReader(fr);
+			
+			
 			String sCurrentLine;
-			// System.out.print(se.get(0).getSelector().get(0).getIdentifiers().get(0).getIdentifier().get(0).getstpos());
-
 			List<Msg> listmsg = msgs.getmsg();
 			int a = 0;
 
 			while ((sCurrentLine = br.readLine()) != null) {
-				System.out.println(rdConfig.getMsgIdforMatchingStr(sCurrentLine)+"testing");
+				a=a+1;
 				this.msgId=rdConfig.getMsgIdforMatchingStr(sCurrentLine);
-				for (Selector s : se.get(0).getSelector()) {
-					for (Identifier ident : s.getIdentifiers().get(0).getIdentifier()) {
-						
-//						if (Integer.parseInt(ident.getexpval()) == Integer.parseInt(sCurrentLine
-//								.substring(Integer.parseInt(ident.getstpos()), Integer.parseInt(ident.getenmsg())))) {
-//
-//							//this.msgId = s.getId();
-//							
-//						}
-						msgs.getMsgfromInput(sCurrentLine);
 						for (Msg m : listmsg) {
-							a = a + 1;
-							//System.out.print(m.getId());
-							List<Elements> list = m.getele();
-
-							if (m.getId().equals(msgId)) {
-								// hashmap.add(String.valueOf(i));
+							List<Element> list = m.getelements().get(0).getElement();
+							if (msgId.equals(m.getId())) {
 								HashMap<String, String> hm = new HashMap<String, String>();
-								i = i + 1;
 
-								for (Elements e : list) {
+								for (Element e : list) {
 									try {
 										hm.put(" " + e.getelname(),
 												sCurrentLine.substring(Integer.parseInt(e.getstpos()), e.getenmsg()));
 									} catch (Exception err) {
-										error.add("line " + i + " " + e.getelname() + " " + e.getenmsg() + " "
+										error.add("line " + a + " " + e.getelname() + " " + e.getenmsg() + " "
 												+ e.getstpos());
 										System.out.println(err);
 									}
@@ -95,28 +79,16 @@ public class ReadFile {
 								else{
 									hashmap.add(hm);
 								}
-
 							}
-							//hashmap.add(hm);
-
-							
-							// return hashmap;
-						}
-						
-						msgId = null;
-
-					}
-				}
-				
+						}				
+						msgId = null;		
 			}
 			System.out.print(error);
+			
 		} catch (Exception err) {
 			System.err.println(err);
-			
-
 		}
-		return hashmap;
-		
+		return hashmap;		
 	}
-	//return hashmap;
+
 }
