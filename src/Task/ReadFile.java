@@ -14,10 +14,11 @@ import javax.xml.bind.Unmarshaller;
 
 public class ReadFile {
 	private String xmlFile;
-	private String inputFile;
+	//private String inputFile;
 	private ArrayList<HashMap> hashmap;
 	private String msgFile;
 	private String msgId;
+	private String inputFile;
 
 	public void setMsgId(String file) {
 		this.msgFile = file;
