@@ -1,6 +1,8 @@
 package Task;
 
 import javafx.application.Application;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
@@ -10,6 +12,9 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
+import javafx.scene.control.Menu;
+import javafx.scene.control.MenuBar;
+import javafx.scene.control.MenuItem;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
@@ -45,10 +50,28 @@ public class Main extends Application {
         stage.setTitle("File Chooser Sample");
  
         final FileChooser fileChooser = new FileChooser();
-        final Button openButton = new Button("Open TestFile");
-        Button exitButton= new Button("Close");
-        Label label1 = new Label();
-        exitButton.setOnAction(new EventHandler<ActionEvent>(){
+        //final Button openButton = new Button("Open TestFile");
+        //Button exitButton= new Button("Close");
+        MenuItem open = new MenuItem("Open");
+        MenuItem exit = new MenuItem("Exit");
+       // Label label1 = new Label();
+        
+        MenuBar menuBar = new MenuBar();
+        Menu menuFile = new Menu("File");
+        Menu menuEdit = new Menu("Edit");
+        menuFile.getItems().addAll(open, exit);
+        menuBar.getMenus().addAll(menuFile, menuEdit);
+        
+        ListView<String> list = new ListView<String>();
+        ObservableList<String> items =FXCollections.observableArrayList();
+        list.setPrefWidth(500);
+        list.setPrefHeight(700);
+        		//(
+        	   // "Single", "Double", "Suite", "Family App");
+        
+        	//list.setItems(items);
+     //   list.prefHeightProperty().bind(Bindings.size(itemListProperty).multiply(LIST_CELL_HEIGHT));
+        exit.setOnAction(new EventHandler<ActionEvent>(){
         
 			@Override
 			public void handle(ActionEvent event) {
@@ -56,7 +79,7 @@ public class Main extends Application {
 			}
         	
         });
-        openButton.setOnAction(
+        open.setOnAction(
             new EventHandler<ActionEvent>() {
                 @Override
                 public void handle(final ActionEvent e) {
@@ -71,7 +94,9 @@ public class Main extends Application {
                        try {
 						String out = op.printResult();
 						
-						label1.setText(out);
+						//label1.setText(out);
+						items.add(out);
+						list.setItems(items);
 
 					} catch (NumberFormatException | JAXBException | IOException e1) {
 						// TODO Auto-generated catch block
@@ -79,18 +104,19 @@ public class Main extends Application {
 					}
                     }
                 }
+                
             });
  
 
  
         final GridPane inputGridPane = new GridPane();
  
-        GridPane.setConstraints(openButton, 0, 1);
-        GridPane.setConstraints(exitButton, 1, 1);
-        GridPane.setConstraints(label1, 2, 1);
+        //GridPane.setConstraints(openButton, 0, 1);
+        GridPane.setConstraints(list, 1, 1);
+       // GridPane.setConstraints(label1, 2, 1);
         inputGridPane.setHgap(6);
         inputGridPane.setVgap(6);
-        inputGridPane.getChildren().addAll(openButton,exitButton,label1);
+        inputGridPane.getChildren().addAll(menuBar,list);
         
         final Pane rootGroup = new Pane();
         rootGroup.getChildren().addAll(inputGridPane);

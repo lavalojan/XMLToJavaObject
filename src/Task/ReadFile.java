@@ -58,6 +58,7 @@ public class ReadFile {
 
 			while ((sCurrentLine = br.readLine()) != null) {
 				a=a+1;
+				
 				this.msgId=rdConfig.getMsgIdforMatchingStr(sCurrentLine);
 						for (Msg m : listmsg) {
 							List<Element> list = m.getelements().get(0).getElement();
