@@ -1,6 +1,8 @@
 package Task;
 
 import javafx.application.Application;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -15,6 +17,7 @@ import javafx.scene.control.ListView;
 import javafx.scene.control.Menu;
 import javafx.scene.control.MenuBar;
 import javafx.scene.control.MenuItem;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
@@ -23,8 +26,12 @@ import javafx.stage.Stage;
 
 import java.awt.Desktop;
 import java.awt.TextField;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileReader;
 import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -48,13 +55,13 @@ public class Main extends Application {
 	@Override
     public void start(final Stage stage) {
         stage.setTitle("File Chooser Sample");
- 
+        int m;
         final FileChooser fileChooser = new FileChooser();
         //final Button openButton = new Button("Open TestFile");
         //Button exitButton= new Button("Close");
         MenuItem open = new MenuItem("Open");
         MenuItem exit = new MenuItem("Exit");
-       // Label label1 = new Label();
+        Label label = new Label();
         
         MenuBar menuBar = new MenuBar();
         Menu menuFile = new Menu("File");
@@ -63,14 +70,13 @@ public class Main extends Application {
         menuBar.getMenus().addAll(menuFile, menuEdit);
         
         ListView<String> list = new ListView<String>();
+        ListView<String> list2 = new ListView<String>();
         ObservableList<String> items =FXCollections.observableArrayList();
-        list.setPrefWidth(500);
-        list.setPrefHeight(700);
-        		//(
-        	   // "Single", "Double", "Suite", "Family App");
-        
-        	//list.setItems(items);
-     //   list.prefHeightProperty().bind(Bindings.size(itemListProperty).multiply(LIST_CELL_HEIGHT));
+        ObservableList<String> items2 =FXCollections.observableArrayList();
+        list.setPrefWidth(300);
+        list.setPrefHeight(600);
+        list2.setPrefWidth(300);
+        list2.setPrefHeight(600);
         exit.setOnAction(new EventHandler<ActionEvent>(){
         
 			@Override
@@ -87,16 +93,42 @@ public class Main extends Application {
                     File file = fileChooser.showOpenDialog(stage);
                     if (file != null) {
                     	Output op=new Output();
-                    	
+                    	ReadFile rf=new ReadFile();
                        fileIn=file.getParent()+"\\"+file.getName();
                   
                        op.getInput(fileIn);
                        try {
-						String out = op.printResult();
+						//String out = op.printResult();
 						
-						//label1.setText(out);
-						items.add(out);
+						ArrayList<HashMap> hs=op.printResult();
+						System.out.println(hs);
+						FileReader fr = new FileReader(fileIn);
+						BufferedReader br = new BufferedReader(fr);
+						String currentLine;
+						while ((currentLine = br.readLine()) != null) {
+							
+						//for (int n = 0; n < hs.size(); n++) {
+							//System.out.println(hs.get(n));
+							items.add(currentLine);
+							//items.add("line :"+ (n+1));
+						}
+			
+					      list.setOnMouseClicked(new EventHandler<MouseEvent>(){
+
+					          @Override
+					          public void handle(MouseEvent arg0) {
+					        	  items2.clear();
+					        	  //items2.add(list.getSelectionModel().getSelectedItems().get(0));
+					        	  for (Object objname : hs.get(list.getSelectionModel().getSelectedIndex()).keySet()) {
+					        		  items2.add(objname+" : " + hs.get(list.getSelectionModel().getSelectedIndex()).get(objname));
+					        	  }
+
+					          }
+
+					      });
+						//items.add(out)
 						list.setItems(items);
+						list2.setItems(items2);
 
 					} catch (NumberFormatException | JAXBException | IOException e1) {
 						// TODO Auto-generated catch block
@@ -107,28 +139,27 @@ public class Main extends Application {
                 
             });
  
-
  
         final GridPane inputGridPane = new GridPane();
  
         //GridPane.setConstraints(openButton, 0, 1);
         GridPane.setConstraints(list, 1, 1);
-       // GridPane.setConstraints(label1, 2, 1);
+        GridPane.setConstraints(list2, 2, 1);
         inputGridPane.setHgap(6);
         inputGridPane.setVgap(6);
-        inputGridPane.getChildren().addAll(menuBar,list);
+        inputGridPane.getChildren().addAll(menuBar,list,list2);
         
         final Pane rootGroup = new Pane();
         rootGroup.getChildren().addAll(inputGridPane);
         rootGroup.setPadding(new Insets(12, 12, 12, 12));
  
-        stage.setScene(new Scene(rootGroup,700,900));
+        stage.setScene(new Scene(rootGroup,900,900));
         stage.show();
     }
 	
 	 private static void configureFileChooser(
 		        final FileChooser fileChooser) {      
-		            fileChooser.setTitle("View Pictures");
+		           // fileChooser.setTitle("View Pictures");
 		            fileChooser.setInitialDirectory(
 		                new File(System.getProperty("user.home"))
 		            );                 

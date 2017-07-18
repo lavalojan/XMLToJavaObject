@@ -19,6 +19,11 @@ public class ReadFile {
 	private String msgFile;
 	private String msgId;
 	private String inputFile;
+	private String currentLine;
+	
+	public String getLine(){
+		return currentLine;
+	}
 
 	public void setMsgId(String file) {
 		this.msgFile = file;
@@ -58,7 +63,7 @@ public class ReadFile {
 
 			while ((sCurrentLine = br.readLine()) != null) {
 				a=a+1;
-				
+				System.out.println(sCurrentLine);
 				this.msgId=rdConfig.getMsgIdforMatchingStr(sCurrentLine);
 						for (Msg m : listmsg) {
 							List<Element> list = m.getelements().get(0).getElement();
