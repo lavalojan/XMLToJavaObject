@@ -63,12 +63,17 @@ public class ReadFile {
 
 			while ((sCurrentLine = br.readLine()) != null) {
 				a=a+1;
-				System.out.println(sCurrentLine);
+				
 				this.msgId=rdConfig.getMsgIdforMatchingStr(sCurrentLine);
+				System.out.println(msgId);
+				HashMap<String, String> hm = new HashMap<String, String>();
+				if(msgId!=""){
 						for (Msg m : listmsg) {
 							List<Element> list = m.getelements().get(0).getElement();
+							
+							
 							if (msgId.equals(m.getId())) {
-								HashMap<String, String> hm = new HashMap<String, String>();
+								//HashMap<String, String> hm = new HashMap<String, String>();
 
 								for (Element e : list) {
 									try {
@@ -87,7 +92,14 @@ public class ReadFile {
 									hashmap.add(hm);
 								}
 							}
-						}				
+
+						}
+							
+						}
+				else{
+					hm.put("", "no");
+					hashmap.add(hm);
+				}
 						msgId = null;		
 			}
 			System.out.print(error);

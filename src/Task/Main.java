@@ -112,7 +112,6 @@ public class Main extends Application {
 							items.add(currentLine);
 							//items.add("line :"+ (n+1));
 						}
-			
 					      list.setOnMouseClicked(new EventHandler<MouseEvent>(){
 
 					          @Override

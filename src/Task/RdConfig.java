@@ -10,17 +10,21 @@ import javax.xml.bind.annotation.XmlRootElement;
 public class RdConfig {
 	private List<Selectors> selectors;
 	String msgId;
-	
+	int n;
 	
 	public String getMsgIdforMatchingStr(String sLine){
-		
+		this.msgId="";
 		for (Selector s : selectors.get(0).getSelector()) {
+			n=0;
 			for (Identifier ident : s.getIdentifiers().get(0).getIdentifier()) {
 				
 				if (Integer.parseInt(ident.getexpval()) == Integer.parseInt(sLine
 						.substring(Integer.parseInt(ident.getstpos()), Integer.parseInt(ident.getenmsg())))) {
-
-					this.msgId = s.getId();
+					n=n+1;
+					if(n==s.getIdentifiers().get(0).getIdentifier().size()){
+						this.msgId = s.getId();
+					}
+					
 					
 				}
 			}
