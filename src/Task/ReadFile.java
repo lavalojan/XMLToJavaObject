@@ -52,7 +52,7 @@ public class ReadFile {
 			JAXBContext jaxbContext2 = JAXBContext.newInstance(RdConfig.class);
 			Unmarshaller jaxbUnmarshaller2 = jaxbContext2.createUnmarshaller();
 			RdConfig rdConfig = (RdConfig) jaxbUnmarshaller2.unmarshal(file2);
-			
+			//Main main=new Main();
 			FileReader fr = new FileReader(inputFile);
 			BufferedReader br = new BufferedReader(fr);
 			
@@ -63,15 +63,11 @@ public class ReadFile {
 
 			while ((sCurrentLine = br.readLine()) != null) {
 				a=a+1;
-				
 				this.msgId=rdConfig.getMsgIdforMatchingStr(sCurrentLine);
-				System.out.println(msgId);
 				HashMap<String, String> hm = new HashMap<String, String>();
 				if(msgId!=""){
 						for (Msg m : listmsg) {
-							List<Element> list = m.getelements().get(0).getElement();
-							
-							
+							List<Element> list = m.getelements().get(0).getElement();	
 							if (msgId.equals(m.getId())) {
 								//HashMap<String, String> hm = new HashMap<String, String>();
 

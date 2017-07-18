@@ -61,7 +61,8 @@ public class Main extends Application {
         //Button exitButton= new Button("Close");
         MenuItem open = new MenuItem("Open");
         MenuItem exit = new MenuItem("Exit");
-        Label label = new Label();
+        Label in = new Label("Input File");
+        Label result = new Label("Result");
         
         MenuBar menuBar = new MenuBar();
         Menu menuFile = new Menu("File");
@@ -101,23 +102,21 @@ public class Main extends Application {
 						//String out = op.printResult();
 						
 						ArrayList<HashMap> hs=op.printResult();
-						System.out.println(hs);
+						
 						FileReader fr = new FileReader(fileIn);
 						BufferedReader br = new BufferedReader(fr);
 						String currentLine;
+						items.clear();
+						items2.clear();
 						while ((currentLine = br.readLine()) != null) {
 							
-						//for (int n = 0; n < hs.size(); n++) {
-							//System.out.println(hs.get(n));
 							items.add(currentLine);
-							//items.add("line :"+ (n+1));
-						}
+							}
 					      list.setOnMouseClicked(new EventHandler<MouseEvent>(){
 
 					          @Override
 					          public void handle(MouseEvent arg0) {
 					        	  items2.clear();
-					        	  //items2.add(list.getSelectionModel().getSelectedItems().get(0));
 					        	  for (Object objname : hs.get(list.getSelectionModel().getSelectedIndex()).keySet()) {
 					        		  items2.add(objname+" : " + hs.get(list.getSelectionModel().getSelectedIndex()).get(objname));
 					        	  }
@@ -125,7 +124,6 @@ public class Main extends Application {
 					          }
 
 					      });
-						//items.add(out)
 						list.setItems(items);
 						list2.setItems(items2);
 
@@ -140,13 +138,13 @@ public class Main extends Application {
  
  
         final GridPane inputGridPane = new GridPane();
- 
-        //GridPane.setConstraints(openButton, 0, 1);
-        GridPane.setConstraints(list, 1, 1);
-        GridPane.setConstraints(list2, 2, 1);
+        GridPane.setConstraints(in, 2, 1);
+        GridPane.setConstraints(result, 3, 1);
+        GridPane.setConstraints(list, 2, 2);
+        GridPane.setConstraints(list2, 3, 2);
         inputGridPane.setHgap(6);
         inputGridPane.setVgap(6);
-        inputGridPane.getChildren().addAll(menuBar,list,list2);
+        inputGridPane.getChildren().addAll(menuBar,list,list2,in,result);
         
         final Pane rootGroup = new Pane();
         rootGroup.getChildren().addAll(inputGridPane);

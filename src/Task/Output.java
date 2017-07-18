@@ -14,13 +14,7 @@ public class Output {
 		rf.setXmlFile("values.xml");
 		rf.setMsgId("idSelector.xml");
 		rf.setInputFile(inputfile);
-		String out = "";
-		//ArrayList outlist=new ArrayList();
-		
 		ArrayList<HashMap> hashmap =rf.createhashmap();
-		System.out.println("\n"+hashmap);
-
-
 		return hashmap;
 	}
 	public String setInput(){
