@@ -108,10 +108,12 @@ public class Main extends Application {
 						String currentLine;
 						items.clear();
 						items2.clear();
+						int i=0;
 						while ((currentLine = br.readLine()) != null) {
-							
-							items.add(currentLine);
+							i++;
+							items.add("line : " +i+ currentLine.substring(0, 15));
 							}
+
 					      list.setOnMouseClicked(new EventHandler<MouseEvent>(){
 
 					          @Override
@@ -155,11 +157,11 @@ public class Main extends Application {
     }
 	
 	 private static void configureFileChooser(
-		        final FileChooser fileChooser) {      
-		           // fileChooser.setTitle("View Pictures");
-		            fileChooser.setInitialDirectory(
-		                new File(System.getProperty("user.home"))
-		            );                 
+		        final FileChooser fileChooser) { 
+		            fileChooser.setInitialDirectory(	
+		            		new File(System.getProperty("user.home"))
+		            );          
+		 
 		            fileChooser.getExtensionFilters().addAll(
 		                new FileChooser.ExtensionFilter("*.TXT", "*.txt")
 		            );
