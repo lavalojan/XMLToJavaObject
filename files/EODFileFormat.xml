@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>  
+<MSGS>
+<MSG id="MSG1">  
+<ELEMENTS>
+	<ELEMENT ST_POS="7" ENMSG="12" EL_NAME="TRANSACTION TYPE"/>   
+	<ELEMENT ST_POS="3" ENMSG="9" EL_NAME="TRANSACTION NAME"/> 
+	<ELEMENT ST_POS="3" ENMSG="9" EL_NAME="TRANSACTION EVENT"/>   
+</ELEMENTS>
+</MSG>
+</MSGS>
